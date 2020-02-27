@@ -13157,7 +13157,7 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Importing the necessary libraries</span>
@@ -13184,7 +13184,7 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Reading in the data directly from the StockX Data Challenge 2019 webpage</span>
@@ -13213,7 +13213,7 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Taking a quick look at how the data is structured</span>
@@ -13230,7 +13230,7 @@ Mail: ssalam@ncsu.edu</p>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[4]:</div>
+    <div class="prompt output_prompt">Out[10]:</div>
 
 
 
@@ -13340,7 +13340,7 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting the dimensions of the data</span>
@@ -13357,7 +13357,7 @@ Mail: ssalam@ncsu.edu</p>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[5]:</div>
+    <div class="prompt output_prompt">Out[11]:</div>
 
 
 
@@ -13382,11 +13382,11 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Checking for missing values</span>
-<span class="nb">sum</span><span class="p">(</span><span class="n">stockx_data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">stockx_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13399,13 +13399,21 @@ Mail: ssalam@ncsu.edu</p>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0</pre>
+<pre>Order Date      0
+Brand           0
+Sneaker Name    0
+Sale Price      0
+Retail Price    0
+Release Date    0
+Shoe Size       0
+Buyer Region    0
+dtype: int64</pre>
 </div>
 
 </div>
@@ -13424,7 +13432,7 @@ Mail: ssalam@ncsu.edu</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Checking the data types of each column</span>
@@ -13441,7 +13449,7 @@ Mail: ssalam@ncsu.edu</p>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -13474,7 +13482,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Stripping all leading and trailing white space in the Brand column</span>
@@ -13531,7 +13539,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Looking at mean and median of Sale Price: basicstats_saleprice</span>
@@ -13554,7 +13562,7 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[9]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -13581,7 +13589,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Plotting the distribution of Sale Price</span>
@@ -13629,7 +13637,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Box and whisker plot of Sale Price</span>
@@ -13673,7 +13681,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Looking at mean and median of Retail Price: basicstats_retailprice</span>
@@ -13696,7 +13704,7 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[12]:</div>
+    <div class="prompt output_prompt">Out[18]:</div>
 
 
 
@@ -13723,7 +13731,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Looking at mean and median of Shoe Size: basicstats_shoesize</span>
@@ -13746,7 +13754,7 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -13771,7 +13779,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Plotting the distribution of shoe size. </span>
@@ -13819,7 +13827,7 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Box and whisker plot of Shoe Size. </span>
@@ -13863,11 +13871,11 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Looking at Brand levels and value counts</span>
-<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Brand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Brand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13880,15 +13888,44 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[23]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>Yeezy        72162
-Off-White    27794
-Name: Brand, dtype: int64</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Brand</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Yeezy</th>
+      <td>72162</td>
+    </tr>
+    <tr>
+      <th>Off-White</th>
+      <td>27794</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -13907,11 +13944,11 @@ Name: Brand, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#looking at Sneaker Name levels and counts </span>
-<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Sneaker Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Sneaker Name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13924,63 +13961,56 @@ Name: Brand, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[24]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>adidas-Yeezy-Boost-350-V2-Butter                     11423
-Adidas-Yeezy-Boost-350-V2-Beluga-2pt0                10395
-Adidas-Yeezy-Boost-350-V2-Zebra                      10110
-Adidas-Yeezy-Boost-350-V2-Blue-Tint                   9297
-Adidas-Yeezy-Boost-350-V2-Cream-White                 9097
-Adidas-Yeezy-Boost-350-V2-Sesame                      5553
-adidas-Yeezy-Boost-350-V2-Static                      4983
-Adidas-Yeezy-Boost-350-V2-Semi-Frozen-Yellow          4854
-Air-Jordan-1-Retro-High-Off-White-University-Blue     4635
-adidas-Yeezy-Boost-350-V2-Static-Reflective           3184
-Nike-Air-Presto-Off-White-Black-2018                  1884
-Nike-Air-Presto-Off-White-White-2018                  1883
-Nike-Air-VaporMax-Off-White-2018                      1591
-Nike-Blazer-Mid-Off-White-All-Hallows-Eve             1435
-Nike-Blazer-Mid-Off-White-Grim-Reaper                 1398
-Nike-Zoom-Fly-Off-White-Pink                          1359
-Nike-Air-VaporMax-Off-White-Black                     1313
-Nike-Zoom-Fly-Off-White-Black-Silver                  1222
-Nike-Air-Force-1-Low-Off-White-Volt                   1019
-Adidas-Yeezy-Boost-350-V2-Core-Black-Red-2017          969
-Nike-Air-Force-1-Low-Off-White-Black-White             960
-Air-Jordan-1-Retro-High-Off-White-Chicago              755
-Nike-Air-Max-90-Off-White-Black                        722
-Nike-Zoom-Fly-Mercurial-Off-White-Total-Orange         656
-Nike-Air-Max-90-Off-White-Desert-Ore                   649
-Nike-Zoom-Fly-Mercurial-Off-White-Black                645
-Nike-Air-Max-90-Off-White                              627
-Adidas-Yeezy-Boost-350-V2-Core-Black-White             621
-Nike-Air-Presto-Off-White                              596
-Nike-Air-Max-97-Off-White                              544
-Nike-Air-VaporMax-Off-White                            525
-Nike-Blazer-Mid-Off-White                              501
-Adidas-Yeezy-Boost-350-Low-V2-Beluga                   498
-Nike-React-Hyperdunk-2017-Flyknit-Off-White            484
-Nike-Air-Force-1-Low-Off-White                         476
-Nike-Zoom-Fly-Off-White                                435
-Nike-Air-Max-97-Off-White-Menta                        343
-Air-Jordan-1-Retro-High-Off-White-White                313
-Adidas-Yeezy-Boost-350-V2-Core-Black-Red               302
-Nike-Air-Max-97-Off-White-Black                        289
-Nike-Blazer-Mid-Off-White-Wolf-Grey                    288
-Adidas-Yeezy-Boost-350-V2-Core-Black-Copper            225
-Nike-Air-Max-97-Off-White-Elemental-Rose-Queen         216
-Adidas-Yeezy-Boost-350-V2-Core-Black-Green             196
-Adidas-Yeezy-Boost-350-Low-Pirate-Black-2016           122
-Adidas-Yeezy-Boost-350-Low-Moonrock                    100
-Adidas-Yeezy-Boost-350-Low-Pirate-Black-2015            95
-Adidas-Yeezy-Boost-350-Low-Oxford-Tan                   70
-Adidas-Yeezy-Boost-350-Low-Turtledove                   68
-Nike-Air-Force-1-Low-Virgil-Abloh-Off-White-AF100       31
-Name: Sneaker Name, dtype: int64</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sneaker Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>adidas-Yeezy-Boost-350-V2-Butter</th>
+      <td>11423</td>
+    </tr>
+    <tr>
+      <th>Adidas-Yeezy-Boost-350-V2-Beluga-2pt0</th>
+      <td>10395</td>
+    </tr>
+    <tr>
+      <th>Adidas-Yeezy-Boost-350-V2-Zebra</th>
+      <td>10110</td>
+    </tr>
+    <tr>
+      <th>Adidas-Yeezy-Boost-350-V2-Blue-Tint</th>
+      <td>9297</td>
+    </tr>
+    <tr>
+      <th>Adidas-Yeezy-Boost-350-V2-Cream-White</th>
+      <td>9097</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -13999,12 +14029,12 @@ Name: Sneaker Name, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Looking at Buyer Region levels and counts: California and New York make up a significant portion of total purchases,</span>
 <span class="c1">#with New York more than double Oregon sitting in 3rd place</span>
-<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14017,64 +14047,56 @@ Name: Sneaker Name, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[18]:</div>
+    <div class="prompt output_prompt">Out[25]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>California              19349
-New York                16525
-Oregon                   7681
-Florida                  6376
-Texas                    5876
-New Jersey               4720
-Illinois                 3782
-Pennsylvania             3109
-Massachusetts            2903
-Michigan                 2762
-Virginia                 2058
-Ohio                     1890
-Maryland                 1870
-Washington               1863
-Georgia                  1846
-Arizona                  1398
-North Carolina           1344
-Delaware                 1242
-Connecticut              1110
-Indiana                  1026
-Colorado                  954
-Wisconsin                 840
-Nevada                    790
-Tennessee                 731
-Minnesota                 725
-Missouri                  660
-South Carolina            570
-Louisiana                 537
-Kentucky                  488
-Iowa                      460
-Alabama                   457
-Utah                      450
-Oklahoma                  412
-Hawaii                    383
-Rhode Island              347
-Kansas                    340
-District of Columbia      271
-Nebraska                  245
-New Hampshire             241
-New Mexico                231
-Arkansas                  173
-West Virginia             166
-Mississippi               163
-Maine                     132
-Idaho                     107
-Vermont                    84
-North Dakota               64
-Alaska                     61
-South Dakota               55
-Montana                    49
-Wyoming                    40
-Name: Buyer Region, dtype: int64</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Buyer Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>California</th>
+      <td>19349</td>
+    </tr>
+    <tr>
+      <th>New York</th>
+      <td>16525</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>7681</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td>6376</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td>5876</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -14152,7 +14174,7 @@ Name: Buyer Region, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Overlaid plot of Mean vs Median Sale Price over Order Date</span>
@@ -14301,17 +14323,17 @@ Name: Buyer Region, dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The table below shows average <strong>Sale Price</strong> over the 50 states. Delaware has the highest average <strong>Sale Price</strong>, while Wyoming has the lowest.</p>
+<p>The table below shows average <strong>Sale Price</strong> over a few states. Delaware has the highest average <strong>Sale Price</strong>, while Wyoming has the lowest.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;Sale Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;Sale Price&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14324,7 +14346,7 @@ Name: Buyer Region, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[24]:</div>
+    <div class="prompt output_prompt">Out[28]:</div>
 
 
 
@@ -14377,236 +14399,6 @@ Name: Buyer Region, dtype: int64</pre>
       <td>California</td>
       <td>478.248223</td>
     </tr>
-    <tr>
-      <th>5</th>
-      <td>Colorado</td>
-      <td>434.015723</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Connecticut</td>
-      <td>412.416224</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Delaware</td>
-      <td>503.335348</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>District of Columbia</td>
-      <td>454.225092</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Florida</td>
-      <td>445.425605</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>Georgia</td>
-      <td>430.741798</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>Hawaii</td>
-      <td>488.966057</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>Idaho</td>
-      <td>383.364486</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>Illinois</td>
-      <td>429.322293</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>Indiana</td>
-      <td>415.250978</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>Iowa</td>
-      <td>461.626087</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Kansas</td>
-      <td>411.291176</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>Kentucky</td>
-      <td>462.100410</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>Louisiana</td>
-      <td>407.016760</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>Maine</td>
-      <td>370.772727</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>Maryland</td>
-      <td>433.016907</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>Massachusetts</td>
-      <td>430.158798</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>Michigan</td>
-      <td>418.020861</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>Minnesota</td>
-      <td>436.925517</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>Mississippi</td>
-      <td>394.397722</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>Missouri</td>
-      <td>421.698485</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>Montana</td>
-      <td>415.816327</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>Nebraska</td>
-      <td>409.524153</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Nevada</td>
-      <td>485.824051</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>New Hampshire</td>
-      <td>426.081947</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>New Jersey</td>
-      <td>448.820093</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>New Mexico</td>
-      <td>423.350649</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>New York</td>
-      <td>442.767124</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>North Carolina</td>
-      <td>418.528343</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>North Dakota</td>
-      <td>423.774289</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>Ohio</td>
-      <td>427.214815</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>Oklahoma</td>
-      <td>434.624300</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>Oregon</td>
-      <td>469.550942</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>Pennsylvania</td>
-      <td>421.476747</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>Rhode Island</td>
-      <td>416.097026</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>South Carolina</td>
-      <td>425.954386</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>South Dakota</td>
-      <td>392.745455</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>Tennessee</td>
-      <td>418.771546</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>Texas</td>
-      <td>417.249155</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>Utah</td>
-      <td>447.097778</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>Vermont</td>
-      <td>456.226190</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>Virginia</td>
-      <td>449.877221</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>Washington</td>
-      <td>444.757753</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>West Virginia</td>
-      <td>368.367470</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>Wisconsin</td>
-      <td>434.114286</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>Wyoming</td>
-      <td>343.775000</td>
-    </tr>
   </tbody>
 </table>
 </div>
@@ -14628,11 +14420,11 @@ Name: Buyer Region, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting each state&#39;s proportion of transactions </span>
-<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">stockx_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="n">stockx_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
     </div>
@@ -14645,64 +14437,56 @@ Name: Buyer Region, dtype: int64</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[25]:</div>
+    <div class="prompt output_prompt">Out[29]:</div>
 
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>California              0.193575
-New York                0.165323
-Oregon                  0.076844
-Florida                 0.063788
-Texas                   0.058786
-New Jersey              0.047221
-Illinois                0.037837
-Pennsylvania            0.031104
-Massachusetts           0.029043
-Michigan                0.027632
-Virginia                0.020589
-Ohio                    0.018908
-Maryland                0.018708
-Washington              0.018638
-Georgia                 0.018468
-Arizona                 0.013986
-North Carolina          0.013446
-Delaware                0.012425
-Connecticut             0.011105
-Indiana                 0.010265
-Colorado                0.009544
-Wisconsin               0.008404
-Nevada                  0.007903
-Tennessee               0.007313
-Minnesota               0.007253
-Missouri                0.006603
-South Carolina          0.005703
-Louisiana               0.005372
-Kentucky                0.004882
-Iowa                    0.004602
-Alabama                 0.004572
-Utah                    0.004502
-Oklahoma                0.004122
-Hawaii                  0.003832
-Rhode Island            0.003472
-Kansas                  0.003401
-District of Columbia    0.002711
-Nebraska                0.002451
-New Hampshire           0.002411
-New Mexico              0.002311
-Arkansas                0.001731
-West Virginia           0.001661
-Mississippi             0.001631
-Maine                   0.001321
-Idaho                   0.001070
-Vermont                 0.000840
-North Dakota            0.000640
-Alaska                  0.000610
-South Dakota            0.000550
-Montana                 0.000490
-Wyoming                 0.000400
-Name: Buyer Region, dtype: float64</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Buyer Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>California</th>
+      <td>0.193575</td>
+    </tr>
+    <tr>
+      <th>New York</th>
+      <td>0.165323</td>
+    </tr>
+    <tr>
+      <th>Oregon</th>
+      <td>0.076844</td>
+    </tr>
+    <tr>
+      <th>Florida</th>
+      <td>0.063788</td>
+    </tr>
+    <tr>
+      <th>Texas</th>
+      <td>0.058786</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -14719,7 +14503,7 @@ Name: Buyer Region, dtype: float64</pre>
 <ol>
 <li><p>date_diff: Elapsed time between <strong>Order Date</strong> and <strong>Release Date</strong>. This allows cross comparisons of different sneakers over the same point in time after release.</p>
 </li>
-<li><p>price_ratio: Ratio of <strong>Sale Price</strong> to <strong>Retail Price</strong>. This standardizes each shoe relative to its retail price and acts as a "hype index" for any given sneaker.</p>
+<li><p>price_ratio: Ratio of <strong>Sale Price</strong> to <strong>Retail Price</strong>. This standardizes each shoe relative to its retail price and acts as a better indicator of the hype of any given sneaker.</p>
 </li>
 <li><p>jordan: A binary indicator variable derived from <strong>Sneaker Name</strong> that indicates if the shoe is a Jordan or not.</p>
 </li>
@@ -14762,7 +14546,7 @@ Name: Buyer Region, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Taking the difference between Order Date and Release Date to create a new column: date_diff</span>
@@ -14822,59 +14606,9 @@ Name: Buyer Region, dtype: float64</pre>
 
 <span class="c1">#Creating the brand2 variable</span>
 <span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;brand2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;Brand&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="s1">&#39;Yeezy&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1">#Check to make sure each column was created and has the right data type</span>
-<span class="n">stockx_data</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[26]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Order Date      datetime64[ns]
-Brand                   object
-Sneaker Name            object
-Sale Price             float64
-Retail Price             int64
-Release Date    datetime64[ns]
-Shoe Size              float64
-Buyer Region            object
-date_diff              float64
-price_ratio            float64
-jordan                   int64
-V2                       int64
-blackcol                 int64
-airmax90                 int64
-airmax97                 int64
-zoom                     int64
-presto                   int64
-airforce                 int64
-blazer                   int64
-vapormax                 int64
-california               int64
-new_york                 int64
-oregon                   int64
-florida                  int64
-texas                    int64
-other_state              int64
-brand2                   int64
-dtype: object</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -14896,10 +14630,10 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14912,7 +14646,7 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[33]:</div>
 
 
 
@@ -15031,57 +14765,9 @@ dtype: object</pre>
       <td>0</td>
       <td>1</td>
     </tr>
-    <tr>
-      <th>3</th>
-      <td>2017-09-01</td>
-      <td>Yeezy</td>
-      <td>Adidas-Yeezy-Boost-350-V2-Core-Black-Red</td>
-      <td>1075.0</td>
-      <td>220</td>
-      <td>2016-11-23</td>
-      <td>11.5</td>
-      <td>Kentucky</td>
-      <td>282.0</td>
-      <td>4.886364</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2017-09-01</td>
-      <td>Yeezy</td>
-      <td>Adidas-Yeezy-Boost-350-V2-Core-Black-Red-2017</td>
-      <td>828.0</td>
-      <td>220</td>
-      <td>2017-02-11</td>
-      <td>11.0</td>
-      <td>Rhode Island</td>
-      <td>202.0</td>
-      <td>3.763636</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-    </tr>
   </tbody>
 </table>
-<p>5 rows × 27 columns</p>
+<p>3 rows × 27 columns</p>
 </div>
 </div>
 
@@ -15169,8 +14855,7 @@ dtype: object</pre>
 <div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Boxplot of price_ratio. Not surprisingly, it looks almost identical to the Sale Price boxplot shown before. Since this feature</span>
-<span class="c1">#demonstrates a strong outlier presence, I need to take a closer look at what is going on with that part of the data. </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Boxplot of price_ratio.</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;price_ratio&quot;</span><span class="p">]);</span>
 </pre></div>
 
@@ -15204,383 +14889,15 @@ dtype: object</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Outliers sometimes pose problems for modeling. Let's examine if the outliers in <strong>price_ratio</strong> share similar characteristics. Based on the sorted table below, it is evident that the outliers in <strong>price_ratio</strong> are almost all Air Jordan 1 Off-Whites. Since there is a common pattern in the outliers, they should not be tampered with.</p>
+<p>Outliers sometimes pose problems for modeling. After examining the outliers in <strong>price_ratio</strong>, I found that almost all of them were Off-White Air Jordan 1. Since there is a common pattern in the outliers, they should not be tampered with.</p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Sorting stockx_data by price_ratio in descending order.</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">stockx_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;price_ratio&quot;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[30]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Order Date</th>
-      <th>Brand</th>
-      <th>Sneaker Name</th>
-      <th>Sale Price</th>
-      <th>Retail Price</th>
-      <th>Release Date</th>
-      <th>Shoe Size</th>
-      <th>Buyer Region</th>
-      <th>date_diff</th>
-      <th>price_ratio</th>
-      <th>...</th>
-      <th>airforce</th>
-      <th>blazer</th>
-      <th>vapormax</th>
-      <th>california</th>
-      <th>new_york</th>
-      <th>oregon</th>
-      <th>florida</th>
-      <th>texas</th>
-      <th>other_state</th>
-      <th>brand2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>26870</th>
-      <td>2018-05-26</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>4050.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>6.0</td>
-      <td>Wisconsin</td>
-      <td>259.0</td>
-      <td>21.315789</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>43410</th>
-      <td>2018-08-10</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3700.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>6.5</td>
-      <td>New York</td>
-      <td>335.0</td>
-      <td>19.473684</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>25935</th>
-      <td>2018-05-16</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-University-Blue</td>
-      <td>3680.0</td>
-      <td>190</td>
-      <td>2018-06-23</td>
-      <td>9.5</td>
-      <td>New Jersey</td>
-      <td>-38.0</td>
-      <td>19.368421</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>47061</th>
-      <td>2018-08-30</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3500.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>6.5</td>
-      <td>New York</td>
-      <td>355.0</td>
-      <td>18.421053</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>95189</th>
-      <td>2019-02-03</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3400.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>7.0</td>
-      <td>California</td>
-      <td>512.0</td>
-      <td>17.894737</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>52620</th>
-      <td>2018-10-05</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3396.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>7.0</td>
-      <td>New York</td>
-      <td>391.0</td>
-      <td>17.873684</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>49238</th>
-      <td>2018-09-19</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3275.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>8.5</td>
-      <td>California</td>
-      <td>375.0</td>
-      <td>17.236842</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>95188</th>
-      <td>2019-02-03</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3100.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>8.0</td>
-      <td>California</td>
-      <td>512.0</td>
-      <td>16.315789</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>93926</th>
-      <td>2019-01-29</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3086.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>7.5</td>
-      <td>New York</td>
-      <td>507.0</td>
-      <td>16.242105</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>98905</th>
-      <td>2019-02-11</td>
-      <td>Off-White</td>
-      <td>Air-Jordan-1-Retro-High-Off-White-Chicago</td>
-      <td>3085.0</td>
-      <td>190</td>
-      <td>2017-09-09</td>
-      <td>8.0</td>
-      <td>Illinois</td>
-      <td>520.0</td>
-      <td>16.236842</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>10 rows × 27 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Below is a histogram of <strong>price_ratio</strong>. Again, it looks quite similar to the equivalent histogram for <strong>Sale Price</strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Plotting histogram of price_ratio to check out the distribution. It looks a lot like Sale Price from earlier, so robust</span>
-<span class="c1">#outlier detection is a must.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">stockx_data</span><span class="p">[</span><span class="s2">&quot;price_ratio&quot;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">);</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Price Ratio&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Histogram of Price Ratio&quot;</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This next histogram is the prior one separated by <strong>Brand</strong>. Here it is very easy to see how the distribution of <strong>price_ratio</strong> differs between Yeezys and Off-Whites.</p>
+<p>The histogram below plots the distribution of <strong>price_ratio</strong> separated by <strong>Brand</strong>. Here it is very easy to see how the distribution of <strong>price_ratio</strong> differs between Yeezys and Off-Whites.</p>
 
 </div>
 </div>
@@ -15641,10 +14958,10 @@ dtype: object</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;price_ratio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stockx_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Buyer Region&quot;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s2">&quot;price_ratio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -15657,7 +14974,7 @@ dtype: object</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[33]:</div>
+    <div class="prompt output_prompt">Out[34]:</div>
 
 
 
@@ -15709,236 +15026,6 @@ dtype: object</pre>
       <th>4</th>
       <td>California</td>
       <td>2.438176</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Colorado</td>
-      <td>2.172674</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Connecticut</td>
-      <td>2.046870</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Delaware</td>
-      <td>2.563942</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>District of Columbia</td>
-      <td>2.246559</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Florida</td>
-      <td>2.255707</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>Georgia</td>
-      <td>2.151061</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>Hawaii</td>
-      <td>2.504045</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>Idaho</td>
-      <td>1.904312</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>Illinois</td>
-      <td>2.150488</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>Indiana</td>
-      <td>2.063030</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>Iowa</td>
-      <td>2.331051</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Kansas</td>
-      <td>1.992180</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>Kentucky</td>
-      <td>2.244372</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>Louisiana</td>
-      <td>2.024313</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>Maine</td>
-      <td>1.789071</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>Maryland</td>
-      <td>2.168093</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>Massachusetts</td>
-      <td>2.135873</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>Michigan</td>
-      <td>2.054569</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>Minnesota</td>
-      <td>2.204256</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>Mississippi</td>
-      <td>1.946662</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>Missouri</td>
-      <td>2.067083</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>Montana</td>
-      <td>1.962976</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>Nebraska</td>
-      <td>2.007944</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Nevada</td>
-      <td>2.473004</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>New Hampshire</td>
-      <td>2.122795</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>New Jersey</td>
-      <td>2.259454</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>New Mexico</td>
-      <td>2.129975</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>New York</td>
-      <td>2.221403</td>
-    </tr>
-    <tr>
-      <th>33</th>
-      <td>North Carolina</td>
-      <td>2.091385</td>
-    </tr>
-    <tr>
-      <th>34</th>
-      <td>North Dakota</td>
-      <td>2.102335</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>Ohio</td>
-      <td>2.150333</td>
-    </tr>
-    <tr>
-      <th>36</th>
-      <td>Oklahoma</td>
-      <td>2.178595</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>Oregon</td>
-      <td>2.399616</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>Pennsylvania</td>
-      <td>2.085390</td>
-    </tr>
-    <tr>
-      <th>39</th>
-      <td>Rhode Island</td>
-      <td>2.099539</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>South Carolina</td>
-      <td>2.138861</td>
-    </tr>
-    <tr>
-      <th>41</th>
-      <td>South Dakota</td>
-      <td>1.854704</td>
-    </tr>
-    <tr>
-      <th>42</th>
-      <td>Tennessee</td>
-      <td>2.065148</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>Texas</td>
-      <td>2.073999</td>
-    </tr>
-    <tr>
-      <th>44</th>
-      <td>Utah</td>
-      <td>2.279851</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>Vermont</td>
-      <td>2.337935</td>
-    </tr>
-    <tr>
-      <th>46</th>
-      <td>Virginia</td>
-      <td>2.272442</td>
-    </tr>
-    <tr>
-      <th>47</th>
-      <td>Washington</td>
-      <td>2.228751</td>
-    </tr>
-    <tr>
-      <th>48</th>
-      <td>West Virginia</td>
-      <td>1.796455</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>Wisconsin</td>
-      <td>2.175679</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>Wyoming</td>
-      <td>1.573379</td>
     </tr>
   </tbody>
 </table>
