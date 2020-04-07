@@ -3,28 +3,55 @@
 <head>
 <title> My website </title>
 <meta charset = "UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
+.w3-myfont {
+  font-family: "Arial", Helvetica, sans-serif;
+}
 img {
   border-radius: 50%;
 }
 </style>
+
 <body>
 
-<div class = "main">
-	<h1> Sameen Salam </h1>
-    <img src="Sameen_MSA_Headshot.jpg" alt="Sameen Salam" style="width:200px">
-	<h2> About Me </h2>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-wide w3-padding w3-card w3-myfont">
+    <a href="#home" class="w3-bar-item w3-button"><b>Sameen Salam</b> </a>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#portfolio" class="w3-bar-item w3-button">Portfolio</a>
+      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+    </div>
+  </div>
+</div>
+
+<div class = "main w3-myfont w3-margin">
+	<p> <br> </p>
+    <p> <br> </p>
+    <h2> Data Professional </h2>
+    <p> Hello, I'm Sameen Salam!
+    	I am an aspiring analytics <br>
+        professional. I extract <img src="Sameen_MSA_Headshot.jpg" alt="Sameen Salam" style="width:200px;float:right">
+        and communicate insights  <br>
+        from data using various modeling techniques, powerful  <br>
+        visualizations, and effective presentation strategies.
+        </p>
 	
-	<p> I am an aspiring analytics professional looking to share my work with the world. Currently, I am an M.S. candidate at the Institute for Advanced Analytics at North Carolina State University. In May 2019, I graduated from the University of North Carolina at Chapel Hill with a B.S. in Biology and a B.A. in Music. During my time at UNC, I worked as a research assistant conducting analytics on yeast microscopy image data and polymer chain simulations.</p>
+<div class="w3-container w3-padding-32" id="about">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About</h3>
+	<p> I am an M.S. candidate at the Institute for Advanced Analytics at North Carolina State University. In May 2019, I graduated from the University of North Carolina at Chapel Hill with a B.S. in Biology and a B.A. in Music. During my time at UNC, I worked as a research assistant conducting analytics on yeast microscopy image data and polymer chain simulations.</p>
 
 	<p> At the Institute, I have built upon my analytics skill set through a team-based practicum project. Our sponsor, Primrose Schools, gave us real company data to work with. As Technical Lead of the project, I spearheaded the data cleaning and processing infrastructure. Additionally, I took responsibility over the technical deliverables given to Primrose Schools at the end of the project. </p>
 	<p> I offer a diverse background combined with a large array of skills. As a biology and music double major, I had quite the interdisciplinary education, with a focus on both analytical thought and creative passion. I am strong in R, Python, Matlab, Jupyter notebook, SQL, and Tableau. I have working knowledge of Git, SAS, Hadoop, Spark, AWS, Excel, and HTML. I have a good grasp of the fundamentals of statistical modeling and machine learning. I am always looking to further refine and expand my data science toolkit so that I can better inform people of the stories locked in their data.  </p>
-    
-    <p> If you would like to see my work experience, here is my <a href= "resume.pdf">resume</a>. If you would like to contact me about any of my work or any opportunities, feel free to <a href = "mailto:ssalam@ncsu.edu">email</a> me. 
-    </p>
 
-	<h2>Projects </h2>
-	<h3> StockX 2019 Data Challenge </h3>
+<div id="portfolio">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 ">Portfolio</h3>
+	<h4> StockX 2019 Data Challenge </h4>
+    <div id = "stockxanalysis" class = "w3-container"> 
     <p>I combined my love for sneakers with my passion for data by analyzing consumer purchases and trying to elucidate underlying patterns. Check out the full Jupyter notebook 
     
 	<a href= "stock_x_analysis.html"> here</a>. If you want to see just the exploratory data analysis portion, then click 
@@ -34,7 +61,13 @@ If you would like to see just the modeling part of the project, click
     	<a href="https://public.tableau.com/profile/sameen.salam#!/vizhome/stockx_dashboard/Dashboard1"> 
 	here</a>.
     </p>
+    </div>
 </div>
+
+<div id="contact">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 ">Contact</h3>
+	<p> If you would like to see my work experience, here is my <a href= 	"resume.pdf">resume</a>. If you would like to contact me about any of my work or 	any opportunities, feel free to <a href = "mailto:ssalam@ncsu.edu">email</a> me. 
+    </p>
 
 </body>
 
