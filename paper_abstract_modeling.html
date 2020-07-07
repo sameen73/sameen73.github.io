@@ -13078,12 +13078,11 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Topic-Modeling-on-Research-Paper-Abstracts">Topic Modeling on Research Paper Abstracts<a class="anchor-link" href="#Topic-Modeling-on-Research-Paper-Abstracts">&#182;</a></h1><p>Iqra Munawar (M.S. Analytics, NCSU 2020) &amp; Sameen Salam (M.S. Analytics, NCSU 2020)</p>
-<p>COVID-19 is one of the biggest challenges the world has had to face in recent memory. As scientists continue to work tirelessly towards a resolution of the crisis, one thing is abundantly clear: there is an enormous amount of COVID-19 related research. In this analysis, we implement a couple of different methods to group abstracts according to topical similarity. By doing this, we hope to make a large corpus of research like this easily parseable to individual labs and accessible to the general public. In this notebook, we use the K-means approach (based on TF-IDF) and the LDA topic modeling approach.</p>
-<p>The original data source used in this analysis comes from the CORD-19 Research Data Challenge hosted on Kaggle. We created our own text pre-processing pipeline (paper_abstract_cleaner.ipynb) and fed the original Kaggle dataset into it to get an output with all original rows and columns plus the extra "abstract2" column. This additional column contains the cleaned and modelable abstracts, and is what is primarily used in this analysis notebook. Unfortunately, as of this version, we have not figured out a way to use the Kaggle API for a direct pull or GitHub for large file storage to handle this dataset, so running this code locally from the repo contents would be impossible. If you have a Kaggle account, you can download it locally off of the Kaggle commit output here: <a href="https://www.kaggle.com/sameensalam/paper-abstract-cleaner/output">https://www.kaggle.com/sameensalam/paper-abstract-cleaner/output</a>. If you do not have a Kaggle account, you will not be able to get the cleaned abstracts, and running the paper_abstract_cleaner notebook in this repo on the original Kaggle dataset would take several hours and brick up your local machine. We will figure out the solution to this problem, hopefully in the next rollout.</p>
+<p>COVID-19 is one of the biggest challenges the world has had to face in recent memory. As scientists continue to work tirelessly towards a resolution of the crisis, one thing is abundantly clear: there is an enormous amount of COVID-19 related research. In this analysis, we implement a couple of different methods to categorize abstracts according to topical similarity. By doing this, we hope to make a large corpus of research like this easily parseable to individual labs and accessible to the general public. In this notebook, we use the K-means approach (based on TF-IDF) and the LDA topic modeling approach.</p>
+<p>The original data source used in this analysis comes from the CORD-19 Research Data Challenge hosted on Kaggle. We created our own text pre-processing pipeline (paper_abstract_cleaner.ipynb) and fed the original Kaggle dataset into it to get an output with all original rows and columns plus the extra "abstract2" column. This additional column contains the cleaned and modelable abstracts, and is what is primarily used in this analysis notebook. There is a .zip file for the data included in this repository if you would like to run it locally. Alternatively, if you have a Kaggle account, you can download it locally off of the Kaggle commit output here: <a href="https://www.kaggle.com/sameensalam/paper-abstract-cleaner/output">https://www.kaggle.com/sameensalam/paper-abstract-cleaner/output</a>.</p>
 <h2 id="Pending-Items">Pending Items<a class="anchor-link" href="#Pending-Items">&#182;</a></h2><ul>
-<li>Look into summarizing key points made frequently in each topic.   </li>
-<li>Make a density plot of documents colored by topic cluster to see the distribution (UMAP).   </li>
-<li>Dataset storage within the repo via LFS or linkup to Kaggle API for direct access and reproducibility.   </li>
+<li>Summarize key points that define each cluster/topic for both K-Means and LDA   </li>
+<li>Create a search engine based on this corpus</li>
 </ul>
 
 </div>
@@ -13106,7 +13105,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Load in the necessary libraries</span>
@@ -13131,8 +13130,8 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">FreqDist</span>
 <span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">LdaModel</span>
 <span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
-<span class="kn">from</span> <span class="nn">kaggle.api.kaggle_api_extended</span> <span class="kn">import</span> <span class="n">KaggleApi</span>
 <span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span><span class="p">,</span> <span class="n">sent_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
 <span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
 <span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Phrases</span>
 <span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">CoherenceModel</span>
@@ -13140,6 +13139,7 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
 <span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
 </pre></div>
 
     </div>
@@ -13252,12 +13252,16 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[138]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Code for Kaggle API workaround (not solved)</span>
-<span class="c1">#api = KaggleApi()</span>
-<span class="c1">#api.authenticate()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Located in the repository with this notebook</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;abstract_cleaned.zip&quot;</span>
+<span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">zip</span><span class="p">:</span> 
+    <span class="nb">zip</span><span class="o">.</span><span class="n">extractall</span><span class="p">()</span>
+
+<span class="c1">#Read in the data</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;abstract_cleaned.csv&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13267,11 +13271,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Update path. As of this version, this notebook cannot be run locally due to a lack of access to the data. </span>
-<span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\USER\Documents\Misc\covid19_research\abstract_cleaned.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#If downloaded directly as a CSV from Kaggle kernel output, then edit path and run </span>
+<span class="c1">#metadata = pd.read_csv(r&#39;C:\Users\USER\Documents\Misc\covid19_research\abstract_cleaned.csv&#39;)</span>
 </pre></div>
 
     </div>
@@ -13281,7 +13285,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metadata</span><span class="o">.</span><span class="n">shape</span>
@@ -13297,7 +13301,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13314,7 +13318,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">metadata</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13330,7 +13334,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -13569,7 +13573,7 @@ memory usage: 11.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Changing each entry in abstract2 column to a list </span>
@@ -13592,7 +13596,7 @@ memory usage: 11.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaned_abstracts</span> <span class="o">=</span> <span class="n">cleaned_abstracts</span><span class="p">[</span><span class="n">cleaned_abstracts</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">]</span>
@@ -13605,7 +13609,7 @@ memory usage: 11.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleaned_abstracts</span><span class="o">.</span><span class="n">shape</span>
@@ -13621,7 +13625,7 @@ memory usage: 11.4+ MB
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[7]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
@@ -16055,8 +16059,537 @@ if(typeof(LDAvis) !== "undefined"){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Search-Engine">Search Engine<a class="anchor-link" href="#Search-Engine">&#182;</a></h2><p>Using this search engine framework, we created an application that can parse through the repository of 75,000 abstracts provided in the data source for this notebook. Check it out at:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metadata</span><span class="o">.</span><span class="n">abstract2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[100]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#34;[&#39;global&#39;, &#39;COVID-19&#39;, &#39;death&#39;, &#39;toll&#39;, &#39;stands&#39;, &#39;time&#39;, &#39;writing&#39;, &#39;time&#39;, &#39;read&#39;, &#39;number&#39;, &#39;increase&#39;, &#39;significantly&#39;, &#39;likely&#39;, &#39;see&#39;, &#39;end&#39;, &#39;time&#39;, &#39;policy&#39;, &#39;maker&#39;, &#39;global&#39;, &#39;north&#39;, &#39;well&#39;, &#39;global&#39;, &#39;south&#39;, &#39;rise&#39;, &#39;challenge&#39;, &#39;decidedly&#39;, &#39;mixed&#39;, &#39;response&#39;, &#39;well&#39;, &#39;decidedly&#39;, &#39;mixed&#39;, &#39;result&#39;, &#39;comparison&#39;, &#39;report&#39;, &#39;case&#39;, &#39;loads&#39;, &#39;say&#39;, &#39;UK&#39;, &#39;germany&#39;, &#39;brazil&#39;, &#39;PR&#39;, &#39;china&#39;, &#39;show&#39;, &#39;discipline&#39;, &#39;specific&#39;, &#39;response&#39;, &#39;translate&#39;, &#39;many&#39;, &#39;global&#39;, &#39;collaborative&#39;, &#39;effort&#39;, &#39;aim&#39;, &#39;develop&#39;, &#39;treatment&#39;, &#39;model&#39;, &#39;impact&#39;, &#39;varying&#39;, &#39;policy&#39;, &#39;option&#39;, &#39;continue&#39;, &#39;pandemic&#39;, &#39;preventive&#39;, &#39;vaccine&#39;, &#39;trial&#39;, &#39;forth&#39;]&#34;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SE_test</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="c1">#.sample(n=10000,random_state=0)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SE_test</span> <span class="o">=</span> <span class="n">SE_test</span><span class="c1">#.reset_index()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SE_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[64]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cord_uid</th>
+      <th>sha</th>
+      <th>source_x</th>
+      <th>title</th>
+      <th>doi</th>
+      <th>pmcid</th>
+      <th>pubmed_id</th>
+      <th>license</th>
+      <th>abstract</th>
+      <th>publish_time</th>
+      <th>authors</th>
+      <th>journal</th>
+      <th>mag_id</th>
+      <th>who_covidence_id</th>
+      <th>arxiv_id</th>
+      <th>pdf_json_files</th>
+      <th>pmc_json_files</th>
+      <th>url</th>
+      <th>s2_id</th>
+      <th>abstract2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>lt17jimb</td>
+      <td>NaN</td>
+      <td>Medline</td>
+      <td>The role of family variables in fruit and vege...</td>
+      <td>10.4081/jphr.2012.e22</td>
+      <td>NaN</td>
+      <td>25170457.0</td>
+      <td>unk</td>
+      <td>ABSTRACT Most Americans, including children, c...</td>
+      <td>2012</td>
+      <td>Goldman, Rachel L; Radnitz, Cynthia L; McGrath...</td>
+      <td>Journal of public health research</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>https://doi.org/10.4081/jphr.2012.e22; https:/...</td>
+      <td>10065731.0</td>
+      <td>['americans', 'include', 'child', 'continue', ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a943sj83</td>
+      <td>NaN</td>
+      <td>WHO</td>
+      <td>The ethical challenges of the SARS-CoV-2 pande...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>unk</td>
+      <td>The global COVID-19 death toll stands at the t...</td>
+      <td>2020</td>
+      <td>Schuklenk, Udo</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>#154926</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>216647886.0</td>
+      <td>['global', 'COVID-19', 'death', 'toll', 'stand...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>mpacgk6o</td>
+      <td>5222649230a68712e13dbfa99f7b2fd8f8190bc6</td>
+      <td>Elsevier; Medline; PMC</td>
+      <td>Pathology of the Exotic Companion Mammal Gastr...</td>
+      <td>10.1016/j.cvex.2014.01.002</td>
+      <td>PMC7172800</td>
+      <td>24767738.0</td>
+      <td>no-cc</td>
+      <td>A variety of disease agents can affect the gas...</td>
+      <td>2014-04-23</td>
+      <td>Reavill, Drury</td>
+      <td>Vet Clin North Am Exot Anim Pract</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>document_parses/pdf_json/5222649230a68712e13db...</td>
+      <td>document_parses/pmc_json/PMC7172800.xml.json</td>
+      <td>https://doi.org/10.1016/j.cvex.2014.01.002; ht...</td>
+      <td>25425517.0</td>
+      <td>['variety', 'disease', 'agent', 'affect', 'gas...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>874kthen</td>
+      <td>NaN</td>
+      <td>Medline</td>
+      <td>Risk factors for bleeding evaluated using the ...</td>
+      <td>10.1097/meg.0000000000000419</td>
+      <td>NaN</td>
+      <td>26075810.0</td>
+      <td>unk</td>
+      <td>BACKGROUND/AIMS Bleeding remains a serious com...</td>
+      <td>2015</td>
+      <td>Noda, Hisatsugu; Ogasawara, Naotaka; Izawa, Sh...</td>
+      <td>European journal of gastroenterology &amp; hepatology</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>https://doi.org/10.1097/meg.0000000000000419; ...</td>
+      <td>10988506.0</td>
+      <td>['backgroundaim', 'bleed', 'remain', 'serious'...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>j6wylhzw</td>
+      <td>40cba5e191966ed333cfa3346d485d5af0791ec0</td>
+      <td>Elsevier; PMC</td>
+      <td>Clinical perspectives of emerging pathogens in...</td>
+      <td>10.1016/s0140-6736(06)68036-7</td>
+      <td>PMC7138062</td>
+      <td>NaN</td>
+      <td>els-covid</td>
+      <td>Summary As a result of immunological and nucle...</td>
+      <td>2006-01-27</td>
+      <td>Ludlam, Christopher A; Powderly, William G; Bo...</td>
+      <td>The Lancet</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>document_parses/pdf_json/40cba5e191966ed333cfa...</td>
+      <td>document_parses/pmc_json/PMC7138062.xml.json</td>
+      <td>https://www.sciencedirect.com/science/article/...</td>
+      <td>37595885.0</td>
+      <td>['summary', 'result', 'immunological', 'nuclei...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Changing each entry in abstract2 column to a list </span>
+<span class="n">SE_test</span><span class="o">.</span><span class="n">abstract2</span> <span class="o">=</span> <span class="n">SE_test</span><span class="p">[</span><span class="s1">&#39;abstract2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creating new cleaned_abstracts_tf object since these next lines of code only applies to K-means</span>
+<span class="n">SE_test</span><span class="o">.</span><span class="n">abstract2</span> <span class="o">=</span> <span class="n">SE_test</span><span class="p">[</span><span class="s1">&#39;abstract2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="c1">#search_engine_cleaned_tf = list(search_engine_cleaned_tf)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[143]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">SE_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">abstract2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;abstract2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">eval</span><span class="p">)</span>
+<span class="n">n_results</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[255]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">covid_search</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">n_results</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="c1">#Get user input</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+
+    <span class="c1">#Tokenize query into words</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="c1">#Lowercase query the same way the data was lowercased</span>
+    <span class="n">lower_case_clean_query</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">query</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">term</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">lower_case_clean_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lower_case_clean_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+
+    <span class="c1">#Lemmatize query</span>
+    <span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+    <span class="n">clean_query</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">lower_case_clean_query</span><span class="p">:</span>
+        <span class="n">clean_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
+
+    <span class="c1">#Insert filtration of abstracts without query words here</span>
+    <span class="n">query_as_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">clean_query</span><span class="p">)</span>
+
+    <span class="c1">#Filtering for rows that contain at least one of the query tokens</span>
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">abstract2</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">query_as_set</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">data_sub</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#data_sub.abstract2 = data_sub[&#39;abstract2&#39;].apply(lambda x: &#39; &#39;.join(x))</span>
+
+    <span class="c1">#Rejoin query tokens</span>
+    <span class="n">clean_query</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clean_query</span><span class="p">)</span>
+
+    <span class="c1">#Figure out this statement later, refers to subset of data outside of function</span>
+    <span class="n">abstracts</span> <span class="o">=</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">abstract2</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">abstracts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">list_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">list_val</span> <span class="ow">in</span> <span class="n">abstracts</span><span class="p">]</span> <span class="c1">#= &#39; &#39;.join(abstracts)#.apply(lambda x:&#39; &#39;.join(x))</span>
+
+
+    <span class="c1">#Add query to list object (n+1 total documents)</span>
+    <span class="n">abstracts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_query</span><span class="p">)</span>
+
+    <span class="c1">#Create TF-IDF vectorizer object </span>
+    <span class="n">tv</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span> <span class="o">=</span> <span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">use_idf</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">lowercase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>\
+                         <span class="n">analyzer</span><span class="o">=</span><span class="s2">&quot;word&quot;</span><span class="p">,</span> <span class="n">token_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;(?u)\S\S+&quot;</span><span class="p">)</span>
+
+    <span class="c1">#Run TF-IDF fit transform and convert to array on all documents + query</span>
+    <span class="n">tv_matrix</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">abstracts</span><span class="p">)</span>
+    <span class="n">tv_matrix</span> <span class="o">=</span> <span class="n">tv_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+
+    <span class="c1">#Calculate cosine similarity between each of n documents and the query (last entry of list)</span>
+    <span class="n">cos_sim_matrix</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">tv_matrix</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,],</span><span class="n">tv_matrix</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1">#Compiling results into dataframe </span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cos_sim_matrix</span><span class="p">)</span>
+
+    <span class="c1">#Sort based on cosine similarity column (labeled 0 by default)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1">#Merge in original abstract column</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data_sub</span><span class="o">.</span><span class="n">abstract</span><span class="p">,</span><span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Merge in cord_uid column </span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data_sub</span><span class="o">.</span><span class="n">cord_uid</span><span class="p">,</span><span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Merge in title column</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data_sub</span><span class="o">.</span><span class="n">title</span><span class="p">,</span><span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+    <span class="c1">#Renaming columns for better readability</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;cosine_similarity&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#Filtering out results with cosine similarity of 0</span>
+    <span class="c1">#results = results[results.cosine_similarity &gt; 0]</span>
+
+    <span class="n">final_results</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n_results</span><span class="p">,]</span>
+
+    <span class="k">return</span> <span class="n">final_results</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[258]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covid_search</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span><span class="n">n_results</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MERS-CoV Transmission Symptoms
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[258]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cosine_similarity</th>
+      <th>abstract</th>
+      <th>cord_uid</th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1612</th>
+      <td>0.506918</td>
+      <td>Middle East respiratory syndrome coronavirus (...</td>
+      <td>tktk2hi9</td>
+      <td>Middle East respiratory syndrome coronavirus: ...</td>
+    </tr>
+    <tr>
+      <th>9767</th>
+      <td>0.501036</td>
+      <td>The newly emerged Middle East respiratory synd...</td>
+      <td>i2zmfwa6</td>
+      <td>Crystal structure of the receptor-binding doma...</td>
+    </tr>
+    <tr>
+      <th>8503</th>
+      <td>0.433815</td>
+      <td>Summary Background A case control study to bet...</td>
+      <td>ynh84b98</td>
+      <td>Predictors of MERS-CoV infection: A large case...</td>
+    </tr>
+    <tr>
+      <th>5352</th>
+      <td>0.423941</td>
+      <td>Middle East respiratory syndrome coronavirus (...</td>
+      <td>404zraam</td>
+      <td>Growth and Quantification of MERS-CoV Infection</td>
+    </tr>
+    <tr>
+      <th>11163</th>
+      <td>0.422500</td>
+      <td>Middle East respiratory syndrome coronavirus (...</td>
+      <td>ynlj4cge</td>
+      <td>Detection of the Middle East Respiratory Syndr...</td>
+    </tr>
+    <tr>
+      <th>1212</th>
+      <td>0.420533</td>
+      <td>BACKGROUND: The new Middle East respiratory sy...</td>
+      <td>n2abv3ub</td>
+      <td>Interhuman transmissibility of Middle East res...</td>
+    </tr>
+    <tr>
+      <th>4594</th>
+      <td>0.412288</td>
+      <td>Middle East respiratory syndrome coronavirus (...</td>
+      <td>im1fs69k</td>
+      <td>Development of Small-Molecule MERS-CoV Inhibitors</td>
+    </tr>
+    <tr>
+      <th>10767</th>
+      <td>0.409794</td>
+      <td>The emergence of the Middle East respiratory s...</td>
+      <td>7hw23xae</td>
+      <td>Deciphering MERS-CoV Evolution in Dromedary Ca...</td>
+    </tr>
+    <tr>
+      <th>5613</th>
+      <td>0.400443</td>
+      <td>BACKGROUND: Middle East respiratory syndrome c...</td>
+      <td>w90eitw9</td>
+      <td>Current epidemiological status of Middle East ...</td>
+    </tr>
+    <tr>
+      <th>6820</th>
+      <td>0.397828</td>
+      <td>The Middle East Respiratory Coronavirus (MERS-...</td>
+      <td>28znb322</td>
+      <td>Middle East respiratory syndrome coronavirus (...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">&#182;</a></h2><p>We have been able to boil the research presented in the CORD-19 Research Data Challenge to 17 main research areas. These topics reflect the various different facets of research that scienists are conducting on COVID-19, and many topics contain overlapping fields with commonalities.</p>
-<p>From here, we will assign these topic labels back to the individual abstracts using the LDA soft-clustering results. We will create topical density plots to show the abstract distribution and how "soft" the boundaries are between topics in a more graunular way. We will also implement some type of summarizing algorithm that takes in all abstracts attributed to a specific topic label and breaks it down into the most important sentences and phrases.</p>
+<p>From here, we will assign these topic labels back to the individual abstracts using the LDA soft-clustering results. We will create topical density plots to show the abstract distribution and how "soft" the boundaries are between topics in a more graunular way. We will also implement some type of summarizing algorithm that takes in all abstracts attributed to a specific topic label and breaks it down into the most important sentences and phrases. Additionally, we will perfect the search engine and figure out how to make it dynamic enough for use.</p>
 <h3 id="Sources">Sources<a class="anchor-link" href="#Sources">&#182;</a></h3><p>We found the following articles helpful for code and/or concepts:<br>
 <a href="https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/">https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/</a><br>
 <a href="https://towardsdatascience.com/evaluate-topic-model-in-python-latent-dirichlet-allocation-lda-7d57484bb5d0">https://towardsdatascience.com/evaluate-topic-model-in-python-latent-dirichlet-allocation-lda-7d57484bb5d0</a><br>
